@@ -1,7 +1,6 @@
 // デュアルモニター設定を「拡張」に設定する
 // 2023/09/14 mutoxu=N
 
-#include <cstdio>
 #include <windows.h>
 #include <winuser.h>
 

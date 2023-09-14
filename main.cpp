@@ -1,7 +1,6 @@
 // デュアルモニター設定を「PC画面のみ」に設定する
 // 2023/09/14 mutoxu=N
 
-#include <cstdio>
 #include <windows.h>
 #include <winuser.h>
 
