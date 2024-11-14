@@ -4,7 +4,7 @@
 #include <windows.h>
 #include <winuser.h>
 
-int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpszCmdLine, int nCmdShow) {
-    SetDisplayConfig(0,NULL,0,NULL,SDC_TOPOLOGY_EXTEND|SDC_APPLY);
+int main() {
+    SetDisplayConfig(0, NULL, 0, NULL, SDC_TOPOLOGY_EXTEND | SDC_APPLY);
     return 0;
 }

@@ -8,11 +8,10 @@
 // 1: 拡張
 // 2: セカンドスクリーンのみ
 
-#include <iostream>
-#include <sstream>
-#include <vector>
 #include <windows.h>
 #include <winuser.h>
+
+#include <iostream>
 
 using namespace std;
 
@@ -22,15 +21,8 @@ bool isNumber(string &str) {
     return !str.empty() && it == str.end();
 }
 
-int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpszCmdLine, int nCmdShow) {
-    string s = lpszCmdLine;
-    stringstream ss{s};
-    vector<string> v;
-
-    // get opts
-    while(getline(ss, s, ' ')) if(s != "") v.push_back(s);
-
-    if(v.size() != 1) {
+int main(int argc, char *argv[]) {
+    if (argc < 2) {
         cerr << "Usage: change_display_mode.exe <mode>" << endl;
         cerr << "\t0: Internal Only" << endl;
         cerr << "\t1: Extend" << endl;
@@ -39,33 +31,34 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpszCmdLi
     }
 
     // option
-    string opt_mode_raw = v[0];
-    if(!isNumber(opt_mode_raw)) {
+    string opt_mode_str = argv[1];
+    if (!isNumber(opt_mode_str)) {
         cerr << "Option #1 must be number.";
         return 2;
     }
 
-    int opt_mode = atoi(opt_mode_raw.c_str());
-    if((opt_mode < 0 || 2 < opt_mode)) {
+    int opt_mode = stoi(opt_mode_str);
+    if ((opt_mode < 0 || 2 < opt_mode)) {
         cerr << "Option #1 must be between 0 and 2." << endl;
         return 3;
     }
 
-
-    switch(opt_mode) {
+    switch (opt_mode) {
         case 0:
             cout << "Changing display mode to \"internal\"" << endl;
-            SetDisplayConfig(0,NULL,0,NULL,SDC_TOPOLOGY_INTERNAL|SDC_APPLY);
+            SetDisplayConfig(0, NULL, 0, NULL,
+                             SDC_TOPOLOGY_INTERNAL | SDC_APPLY);
             break;
 
         case 1:
             cout << "Changing display mode to \"extend\"" << endl;
-            SetDisplayConfig(0,NULL,0,NULL,SDC_TOPOLOGY_EXTEND|SDC_APPLY);
+            SetDisplayConfig(0, NULL, 0, NULL, SDC_TOPOLOGY_EXTEND | SDC_APPLY);
             break;
 
         case 2:
             cout << "Changing display mode to \"external\"" << endl;
-            SetDisplayConfig(0,NULL,0,NULL,SDC_TOPOLOGY_EXTERNAL|SDC_APPLY);
+            SetDisplayConfig(0, NULL, 0, NULL,
+                             SDC_TOPOLOGY_EXTERNAL | SDC_APPLY);
             break;
     }
 
